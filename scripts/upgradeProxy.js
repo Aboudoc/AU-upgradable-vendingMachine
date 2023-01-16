@@ -1,10 +1,11 @@
 const { ethers, upgrades } = require("hardhat");
+require("dotenv").config;
 
-const proxyAddress = "0x1c2D4033b3b5BC5C7075577aC691AA31afE873B2";
+const proxyAddress = process.env.PROXY_ADDRESS;
 
 async function main() {
-  const VendingMachineV2 = await ethers.getContractFactory("VendingMachineV2");
-  const upgraded = await upgrades.upgradeProxy(proxyAddress, VendingMachineV2);
+  const VendingMachineV3 = await ethers.getContractFactory("VendingMachineV3");
+  const upgraded = await upgrades.upgradeProxy(proxyAddress, VendingMachineV3);
 
   const implementationAddress = await upgrades.erc1967.getImplementationAddress(
     proxyAddress
